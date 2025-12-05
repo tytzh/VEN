@@ -16,6 +16,7 @@ inoutcap = 1000; % same as demand
 storage_cap = 1000*T*2; %store 2 periods worth of demand
 
 %% Calculation
+
 % 1. our2
 tic
 [supplyG2,forward_star_rep2, look_up2] = specify_G_7(supply2, veh_routes2, zc, zd, W, T, yc, yd, inoutcap, storage_cap);
@@ -35,17 +36,21 @@ t3 = toc;
 n_arcs3 = size(forward_star_rep3,1);
 n_nodes3 = size(look_up3,1);
 
+
 fprintf('============ Our2 ============\n');
 fprintf('cost: %.2f\n', cost2);
 fprintf('time: %.5f\n', t2);
 fprintf('number of arcs: %.2f\n', n_arcs2);
 fprintf('number of nodes: %.5f\n', n_nodes2);
 
+
 fprintf('============ Our12 ============\n');
 fprintf('cost: %.2f\n', cost3);
 fprintf('time: %.5f\n', t3);
 fprintf('number of arcs: %.2f\n', n_arcs3);
 fprintf('number of nodes: %.5f\n', n_nodes3);
+
+
 
 %% ======== Function ======== 
 function [veh_routes,supply] = get_routes_extend(supply,n_extend,veh_routes,p_exchange,num_period)
@@ -105,5 +110,4 @@ function is_valid = check_order(route, nodes_supply, nodes_demand)
     demand_idx = find(ismember(route, nodes_demand), 1, 'first');
     is_valid = ~isempty(supply_idx) && ~isempty(demand_idx) && (supply_idx < demand_idx);
 end
-
 
