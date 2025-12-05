@@ -9,5 +9,4 @@ These methods are modular and can be used individually or combined.
 
 The input data is provided in '.mat' format as a reference example. Users can replace it with their own datasets as needed by following the same data structure.
 
-Complete input download:
-https://drive.google.com/drive/folders/1e1d33b431kAtLPbJzDyIbin0U-CwvaGN?usp=sharing
+
