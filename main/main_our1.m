@@ -18,7 +18,7 @@ adj = double(adj);
 dis = double(dis);
  
 
-% 1. our1
+%% Calculation
 tic
 extend_veh_routes = get_routes_extend(supply,n_trans,veh_routes,p_trans);
 [supplyG, forward_star_rep, ~, ~] = specify_G_1(supply, extend_veh_routes, zc, zd, W);
@@ -38,6 +38,7 @@ fprintf('LP time: %.5f\n', t2_lp);
 fprintf('Total time: %.5f\n', t2_lp+t2_graph );
 fprintf('number of arcs: %.2f\n', n_arcs2);
 fprintf('number of nodes: %.5f\n', n_nodes2);
+
 
 
 
@@ -93,6 +94,5 @@ function is_valid = check_order(route, nodes_supply, nodes_demand)
     demand_idx = find(ismember(route, nodes_demand), 1, 'last');
     is_valid = ~isempty(supply_idx) && ~isempty(demand_idx) && (supply_idx < demand_idx);
 end
-
 
 
