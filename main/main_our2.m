@@ -16,15 +16,7 @@ inoutcap = 1000; % same as demand
 storage_cap = 1000*T*2; %store 2 periods worth of demand
 
 %% Calculation
-% 1. base
-tic
-[supplyG1,forward_star_rep1, look_up1] = specify_G_6(supply2, veh_routes2, zc, zd, W, T, yc, yd, inoutcap, storage_cap);
-[optimal_flow1, cost1] = find_opt_flow_via_simplex_alg(supplyG1, forward_star_rep1);
-t1 = toc;
-n_arcs1 = size(forward_star_rep1,1);
-n_nodes1 = size(look_up1,1);
-
-% 2. our2
+% 1. our2
 tic
 [supplyG2,forward_star_rep2, look_up2] = specify_G_7(supply2, veh_routes2, zc, zd, W, T, yc, yd, inoutcap, storage_cap);
 [optimal_flow2, cost2] = find_opt_flow_via_simplex_alg(supplyG2, forward_star_rep2);
@@ -32,7 +24,7 @@ t2 = toc;
 n_arcs2 = size(forward_star_rep2,1);
 n_nodes2 = size(look_up2,1);
 
-% 3. our 12
+% 2. our 12
 n_trans = 1;
 p_trans = 0.2;
 tic
@@ -43,28 +35,17 @@ t3 = toc;
 n_arcs3 = size(forward_star_rep3,1);
 n_nodes3 = size(look_up3,1);
 
-fprintf('============ Base ============\n');
-fprintf('cost: %.2f\n', cost1);
-fprintf('time: %.5f\n', t1);
-fprintf('number of arcs: %.2f\n', n_arcs1);
-fprintf('number of nodes: %.5f\n', n_nodes1);
-
 fprintf('============ Our2 ============\n');
 fprintf('cost: %.2f\n', cost2);
 fprintf('time: %.5f\n', t2);
 fprintf('number of arcs: %.2f\n', n_arcs2);
 fprintf('number of nodes: %.5f\n', n_nodes2);
-error_absolute = abs(cost1-cost2)/cost1;
-fprintf('Error between base and proposed (our2): %.2f\n', error_absolute);
 
 fprintf('============ Our12 ============\n');
 fprintf('cost: %.2f\n', cost3);
 fprintf('time: %.5f\n', t3);
 fprintf('number of arcs: %.2f\n', n_arcs3);
 fprintf('number of nodes: %.5f\n', n_nodes3);
-error_absolute = abs(cost1-cost3)/cost1;
-fprintf('Error between base and proposed (our12): %.2f\n', error_absolute);
-
 
 %% ======== Function ======== 
 function [veh_routes,supply] = get_routes_extend(supply,n_extend,veh_routes,p_exchange,num_period)
@@ -124,4 +105,5 @@ function is_valid = check_order(route, nodes_supply, nodes_demand)
     demand_idx = find(ismember(route, nodes_demand), 1, 'first');
     is_valid = ~isempty(supply_idx) && ~isempty(demand_idx) && (supply_idx < demand_idx);
 end
+
 
