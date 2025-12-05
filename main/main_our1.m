@@ -18,18 +18,7 @@ adj = double(adj);
 dis = double(dis);
  
 
-%% Calculation
-% 1. base
-tic
-[supplyG, forward_star_rep, ~, ~] = specify_G_1(supply, veh_routes, zc, zd, W);
-t1_graph = toc;
-tic
-[x_G, cost_1, Aeq1,beq1, ~, ~, ~] = find_opt_flow_via_simplex_alg(supplyG, forward_star_rep);
-t1_lp = toc;
-n_nodes1 = length(supplyG);
-n_arcs1 = size(forward_star_rep,1);
-
-% 2. our1
+% 1. our1
 tic
 extend_veh_routes = get_routes_extend(supply,n_trans,veh_routes,p_trans);
 [supplyG, forward_star_rep, ~, ~] = specify_G_1(supply, extend_veh_routes, zc, zd, W);
@@ -41,15 +30,7 @@ n_nodes2 = length(supplyG);
 n_arcs2 = size(forward_star_rep,1);
 
 
-%% 3. Show Result：
-fprintf('============ Base ============\n');
-fprintf('cost: %.2f\n', cost_1);
-fprintf('graph time: %.5f\n', t1_graph);
-fprintf('LP time: %.5f\n', t1_lp );
-fprintf('Total time: %.5f\n', t1_lp+t1_graph );
-fprintf('number of arcs: %.2f\n', n_arcs1);
-fprintf('number of nodes: %.5f\n', n_nodes1);
-  
+%% 3. Show Result：  
 fprintf('============ Proposed(Our1) ============\n');
 fprintf('cost: %.2f\n', cost_2);
 fprintf('graph time: %.5f\n', t2_graph);
@@ -57,9 +38,6 @@ fprintf('LP time: %.5f\n', t2_lp);
 fprintf('Total time: %.5f\n', t2_lp+t2_graph );
 fprintf('number of arcs: %.2f\n', n_arcs2);
 fprintf('number of nodes: %.5f\n', n_nodes2);
-error_absolute = abs(cost_1-cost_2)/cost_1;
-fprintf('Error between base and proposed (our1): %.2f\n', error_absolute);
-
 
 
 
@@ -115,5 +93,6 @@ function is_valid = check_order(route, nodes_supply, nodes_demand)
     demand_idx = find(ismember(route, nodes_demand), 1, 'last');
     is_valid = ~isempty(supply_idx) && ~isempty(demand_idx) && (supply_idx < demand_idx);
 end
+
 
 
