@@ -5,8 +5,7 @@ This code is a lightweight implementation that focuses on the three core methods
 1. Flow-guided graph reduction (our1)
 2. Route-guided time-expanded graph construction (our2)
 3. LSTM-MPC framework (our3)
-These methods are modular and can be used individually or combined.
 
-The input data is provided in '.mat' format as a reference example. Users can replace it with their own datasets as needed by following the same data structure.
+These methods are modular and can be used individually or combined. The input data is provided in '.mat' format as a reference example. Users can replace it with their own datasets as needed by following the same data structure.
 
 
